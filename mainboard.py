@@ -4,8 +4,10 @@ import gradio as gr
 from templates import template
 from controllers.dispatcher import dispatcher
 
+from components.open_sora.gradio.app import setup_demo
 from components.charts import resource
-from components.langchain import knownledge
+
+# from components.langchain import knownledge
 from components import (
     blip,
     deepseek,
@@ -105,9 +107,14 @@ def setup():
             labels.append("资源监控")
             continue
 
-        elif next_deploy == "knownledge":
-            website.append(knownledge.setup_knownledge())
-            labels.append("知识库管理")
+        # elif next_deploy == "knownledge":
+        #     website.append(knownledge.setup_knownledge())
+        #     labels.append("知识库管理")
+        #     continue
+
+        elif next_deploy == "open-sora":
+            website.append(setup_demo())
+            labels.append("文生视频")
             continue
 
         else:
