@@ -25,11 +25,10 @@ def setup_qwen(
     #     label="Text Generation Model",
     # )
 
-    system_prompt = gr.Textbox(
-        system_prompt,
-        label="System Prompt",
-        lines=3,
-        max_lines=20,
+    sys_prompt = gr.Dropdown(
+        ["通用问答", "英文翻译", "代码生成", "答题助手", "英文问答"],
+        value="通用问答",
+        label="任务类型",
         visible=config_enable,
     )
 
@@ -112,7 +111,7 @@ def setup_qwen(
         stop_btn="停止",
         additional_inputs=[
             model,
-            system_prompt,
+            sys_prompt,
             temperature,
             max_new_tokens,
             top_p,

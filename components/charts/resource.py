@@ -14,7 +14,12 @@ from datetime import datetime, timedelta
 from elasticsearch import Elasticsearch, ElasticsearchWarning
 from matplotlib.dates import DateFormatter, SecondLocator, MinuteLocator
 
-es = Elasticsearch("http://10.121.177.134:9200")
+
+settings = None
+with open("settings.json") as f:
+    settings = json.loads(f.read())
+
+es = Elasticsearch(settings["database"]["elk"]["url"])
 warnings.filterwarnings("ignore", category=ElasticsearchWarning)
 
 

@@ -1,1 +1,4 @@
 *.pyc
+nohup.out
+components/open_sora
+outputs/

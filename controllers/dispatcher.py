@@ -197,7 +197,7 @@ def dispatcher(
                 yield "我暂时无法回答问题"
 
     elif model == "Qwen":
-        system_prompt = args[0]
+        system_prompt = template.template_factory[args[0]]
         temperature = args[1]
         max_new_tokens = args[2]
         top_p = args[3]

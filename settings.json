@@ -39,7 +39,7 @@
         "qwen": {
             "api_host": "10.121.177.161",
             "api_port": "8000",
-            "title": "中文通用"
+            "title": "文本生成"
         }
     },
     "monitor": {
@@ -57,14 +57,20 @@
         },
         "deployment": [
             "qwen",
-            // "llama3",
-            // "deepseek",
             "xtts",
             "blip",
             "sdxl",
-            // "knownledge",
+            "open-sora",
             "monitor"
         ],
         "show_params": true
+    },
+    "database": {
+        "elk": {
+            "url": "http://10.121.177.134:9200"
+        }
+    },
+    "knowledgebase": {
+        "url": "http://10.121.177.161:8501"
     }
 }
