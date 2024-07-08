@@ -41,7 +41,7 @@ def inference(
                 else:
                     pass
         except requests.exceptions.HTTPError as e:
-            print(e)
+            raise e
 
 
 if __name__ == "__main__":

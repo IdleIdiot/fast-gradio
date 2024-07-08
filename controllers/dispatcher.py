@@ -1,3 +1,4 @@
+import requests
 import gradio as gr
 from templates import template
 from services import tgi, blip, xtts, deepseek, sdxl, llama3, qwen
@@ -204,21 +205,27 @@ def dispatcher(
         top_k = args[4]
         host = args[5]
         port = args[6]
-
-        next_tokens = qwen.inference(
-            message,
-            system_prompt,
-            temperature,
-            max_new_tokens,
-            top_p,
-            top_k,
-            host,
-            port,
-        )
         try:
+            next_tokens = qwen.inference(
+                message,
+                system_prompt,
+                temperature,
+                max_new_tokens,
+                top_p,
+                top_k,
+                host,
+                port,
+            )
+
             while next_token := next(next_tokens):
                 response += next_token
                 yield response
         except StopIteration:
             if response == "":
                 yield "我暂时无法回答问题"
+
+        except requests.exceptions.HTTPError as e:
+            yield f"`后端接口请求出错，错误信息：{e}！`"
+
+        except requests.exceptions.ConnectionError as e:
+            yield f"`后端接口无法连接，错误信息：{e}，请检查网络连接或服务状态！`"
