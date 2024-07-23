@@ -1,51 +1,10 @@
 {
     "version": "1.0.0",
-    "models": {
-        "llama2": {
-            "api_host": "10.121.177.161",
-            "api_port": "8081",
-            "title": "英文问答"
-        },
-        "disc": {
-            "api_host": "10.121.177.161",
-            "api_port": "8080",
-            "title": "法律问答"
-        },
-        "deepseek": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "代码生成"
-        },
-        "blip": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "图生短文"
-        },
-        "xtts": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "语音模拟"
-        },
-        "sdxl": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "短文生图"
-        },
-        "llama3": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "英文通用"
-        },
-        "qwen": {
-            "api_host": "10.121.177.161",
-            "api_port": "8000",
-            "title": "文本生成"
-        }
-    },
     "monitor": {
         "host": "10.121.177.161",
         "item_minimum": 1001,
-        "item_maximun": 3000
+        "item_maximun": 3000,
+        "agent_url": "http://10.121.176.191:8280/automation/sys-agent"
     },
     "pages": {
         "application": "Platform for LLMs",
@@ -56,11 +15,6 @@
             "pem": "ssl/cert.pem"
         },
         "deployment": [
-            "qwen",
-            "xtts",
-            "blip",
-            "sdxl",
-            "open-sora",
             "monitor"
         ],
         "show_params": true
@@ -70,7 +24,10 @@
             "url": "http://10.121.177.134:9200"
         }
     },
-    "knowledgebase": {
-        "url": "http://10.121.177.161:8501"
+    "rag": {
+        "proto": "http",
+        "api_host": "10.121.177.161",
+        "api_port": "7865",
+        "default_prompt_type": "llm_model"
     }
 }

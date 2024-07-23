@@ -270,7 +270,7 @@ def setup_resource_chart():
         )
 
         gr.Markdown(
-            value="[代理程序](http://10.121.176.191:8280/automation/sys-agent)",
+            value=f"[代理程序]({settings["monitor"]["agent_url"]})",
             show_label=False,
         )
 

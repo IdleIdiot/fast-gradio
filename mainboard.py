@@ -1,24 +1,8 @@
 import json
 import gradio as gr
 
-from templates import template
-from controllers.dispatcher import dispatcher
-
-from components.open_sora.gradio.app import setup_demo
 from components.charts import resource
-
-# from components.langchain import knownledge
-from components import (
-    blip,
-    deepseek,
-    disc,
-    llama2,
-    xtts,
-    sdxl,
-    llama3,
-    qwen,
-)
-
+from components.knowledgebase import chat_rag
 
 settings = None
 with open("settings.json") as f:
@@ -29,80 +13,7 @@ def setup():
     website = []
     labels = []
     for next_deploy in settings["pages"]["deployment"]:
-        if next_deploy == "llama2":
-            website.append(
-                llama2.setup_llama2(
-                    system_prompt=template.DEFAULT_LLAMA_SYS,
-                    config_enable=settings["pages"]["show_params"],
-                    api_host=settings["models"]["llama2"]["api_host"],
-                    api_port=settings["models"]["llama2"]["api_port"],
-                    interface_func=dispatcher,
-                )
-            )
-        elif next_deploy == "disc":
-            website.append(
-                disc.setup_disc(
-                    system_prompt=template.DEFAULT_DISC_SYS,
-                    config_enable=settings["pages"]["show_params"],
-                    api_host=settings["models"]["disc"]["api_host"],
-                    api_port=settings["models"]["disc"]["api_port"],
-                    interface_func=dispatcher,
-                )
-            )
-        elif next_deploy == "blip":
-            website.append(
-                blip.setup_img2text(
-                    interface_func=dispatcher,
-                    api_host=settings["models"]["blip"]["api_host"],
-                    api_port=settings["models"]["blip"]["api_port"],
-                )
-            )
-        elif next_deploy == "xtts":
-            website.append(
-                xtts.setup_xtts(
-                    interface_func=dispatcher,
-                    api_host=settings["models"]["xtts"]["api_host"],
-                    api_port=settings["models"]["xtts"]["api_port"],
-                )
-            )
-        elif next_deploy == "deepseek":
-            website.append(
-                deepseek.setup_deepseek(
-                    interface_func=dispatcher,
-                    config_enable=settings["pages"]["show_params"],
-                    api_host=settings["models"]["deepseek"]["api_host"],
-                    api_port=settings["models"]["deepseek"]["api_port"],
-                )
-            )
-        elif next_deploy == "sdxl":
-            website.append(
-                sdxl.setup_2_img(
-                    interface_func=dispatcher,
-                    api_host=settings["models"]["sdxl"]["api_host"],
-                    api_port=settings["models"]["sdxl"]["api_port"],
-                )
-            )
-        elif next_deploy == "llama3":
-            website.append(
-                llama3.setup_llama3(
-                    system_prompt=template.DEFAULT_LLAMA_SYS,
-                    config_enable=settings["pages"]["show_params"],
-                    api_host=settings["models"]["llama3"]["api_host"],
-                    api_port=settings["models"]["llama3"]["api_port"],
-                    interface_func=dispatcher,
-                )
-            )
-        elif next_deploy == "qwen":
-            website.append(
-                qwen.setup_qwen(
-                    system_prompt=template.DEFAULT_QWEN_SYS,
-                    config_enable=settings["pages"]["show_params"],
-                    api_host=settings["models"]["qwen"]["api_host"],
-                    api_port=settings["models"]["qwen"]["api_port"],
-                    interface_func=dispatcher,
-                )
-            )
-        elif next_deploy == "monitor":
+        if next_deploy == "monitor":
             website.append(resource.setup_resource_chart())
             labels.append("资源监控")
             continue
@@ -111,12 +22,6 @@ def setup():
         #     website.append(knownledge.setup_knownledge())
         #     labels.append("知识库管理")
         #     continue
-
-        elif next_deploy == "open-sora":
-            website.append(setup_demo())
-            labels.append("文生视频")
-            continue
-
         else:
             continue
 
