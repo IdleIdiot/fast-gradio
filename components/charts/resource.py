@@ -256,7 +256,7 @@ def clean_last_selected(item_selected):
 
 
 # 使用Gradio Blocks构建应用
-def setup_resource_chart():
+def setup():
     with gr.Blocks(
         css="footer {visibility: hidden}",
     ) as app:
@@ -268,9 +268,9 @@ def setup_resource_chart():
             max_lines=1,
             label="服务器 IP",
         )
-
+        ref_url = settings["monitor"]["agent_url"]
         gr.Markdown(
-            value=f"[代理程序]({settings["monitor"]["agent_url"]})",
+            value=f"[代理程序]({ref_url})",
             show_label=False,
         )
 

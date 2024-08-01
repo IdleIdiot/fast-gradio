@@ -2,7 +2,7 @@ import json
 import gradio as gr
 
 from components.charts import resource
-from components.knowledgebase import chat_rag
+from components.knowledgebase import chat_rag, list_kb, file_upload
 
 settings = None
 with open("settings.json") as f:
@@ -14,18 +14,21 @@ def setup():
     labels = []
     for next_deploy in settings["pages"]["deployment"]:
         if next_deploy == "monitor":
-            website.append(resource.setup_resource_chart())
+            website.append(resource.setup())
             labels.append("资源监控")
-            continue
 
-        # elif next_deploy == "knownledge":
-        #     website.append(knownledge.setup_knownledge())
-        #     labels.append("知识库管理")
-        #     continue
+        elif next_deploy == "knownledge":
+            website.append(chat_rag.setup())
+            labels.append("智能对话")
+
+            website.append(list_kb.setup())
+            labels.append("数据管理")
+
+            website.append(file_upload.setup())
+            labels.append("文件上传")
+
         else:
             continue
-
-        labels.append(settings["models"][next_deploy]["title"])
 
     return gr.TabbedInterface(
         website,
@@ -45,8 +48,8 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=settings["pages"]["port"],
         show_api=False,
-        ssl_keyfile=settings["pages"]["ssl"]["key"],
-        ssl_certfile=settings["pages"]["ssl"]["pem"],
-        ssl_verify=False,
+        # ssl_keyfile=settings["pages"]["ssl"]["key"],
+        # ssl_certfile=settings["pages"]["ssl"]["pem"],
+        # ssl_verify=False,
         favicon_path=settings["pages"]["icon"],
     )

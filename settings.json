@@ -15,13 +15,14 @@
             "pem": "ssl/cert.pem"
         },
         "deployment": [
+            "knownledge",
             "monitor"
         ],
         "show_params": true
     },
     "database": {
         "elk": {
-            "url": "http://10.121.177.134:9200"
+            "url": "http://10.121.177.161:9200"
         }
     },
     "rag": {
